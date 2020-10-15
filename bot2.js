@@ -16,13 +16,31 @@ bot.command("onetime", ({ reply }) =>
 	)
 );
 
+bot.command("start", ({ reply }) => {
+	return reply(
+		"Welcome to this test bot",
+		Markup.keyboard([
+			// Array's represent rows
+			["Start a vent"],
+			["Help", "Cancel"],
+			["Send a feedback", "About Us"],
+			["Settings"],
+			["Admin features"],
+		])
+			.oneTime()
+			.resize()
+			.extra()
+	);
+});
+
 bot.command("custom", ({ reply }) => {
 	return reply(
 		"Custom buttons keyboard",
 		Markup.keyboard([
-			["🔍 Search", "😎 Popular"], // Row1 with 2 buttons
-			["☸ Setting", "📞 Feedback"], // Row2 with 2 buttons
-			["📢 Ads", "⭐️ Rate us", "👥 Share"], // Row3 with 3 buttons
+			// Array's represent rows
+			["🔍 Search", "😎 Popular"],
+			["📢 Ads", "⭐️ Rate us", "👥 Share"],
+			["☸ Setting", "📞 Feedback"],
 		])
 			.oneTime()
 			.resize()
