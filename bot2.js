@@ -21,7 +21,6 @@ bot.command("start", ({ reply }) => {
 		"Welcome to this test bot",
 		Markup.keyboard([
 			// Array's represent rows
-			["Start a vent"],
 			["Help", "Cancel"],
 			["Send a feedback", "About Us"],
 			["Settings"],
