@@ -90,7 +90,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const { markup } = require("telegraf/extra");
 
-app.use(bodyParser.urlencoded({ exteded: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/telegram_message", telgramMessager);
 app.use((req, res, next) => {
