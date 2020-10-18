@@ -2,8 +2,8 @@ const Markup = require("telegraf/markup");
 const fs = require("fs");
 const Telegraf = require("telegraf");
 const Extra = require("telegraf/extra");
-const { writeDataUsers } = require("../utils");
 const https = require("https");
+const { sendPostRequest } = require("./botController/BotRequest");
 const telgramMessager = require("./Routes/messagesRoutes");
 
 const bot = new Telegraf("1362797784:AAGSw88xsIT-EiazAPV3WH9oOEZdCjUlq-U");
@@ -47,12 +47,25 @@ bot.on("contact", (ctx) => {
 	ctx.reply(
 		`first_name: ${ctx.update.message.chat.first_name}, last_name: ${ctx.update.message.chat.last_name}, username: ${ctx.update.message.chat.username}, chat_id: ${ctx.update.message.chat.id}, phone_number:${ctx.update.message.contact.phone_number}, user_id:${ctx.update.message.contact.user_id}`
 	);
-
-	bot.on("location", (ctx) => {
-		ctx.reply(
-			`Latitde: ${ctx.update.message.location.latitude}, Longitude: ${ctx.update.message.location.longitude}`
-		);
+	let userObject = {
+		first_name: ctx.update.message.chat.first_name,
+		last_name: ctx.update.message.chat.last_name,
+		username: ctx.update.message.chat.username,
+		chat_id: ctx.update.message.chat.chat.id,
+		phone_number: ctx.update.message.contact.phone_number,
+	};
+	sendPostRequest("POST", userObject, (error, response, body) => {
+		if (err) {
+			console.log(error);
+		}
+		console.log("request sent");
 	});
+});
+
+bot.on("location", (ctx) => {
+	ctx.reply(
+		`Latitde: ${ctx.update.message.location.latitude}, Longitude: ${ctx.update.message.location.longitude}`
+	);
 });
 
 bot.launch();
