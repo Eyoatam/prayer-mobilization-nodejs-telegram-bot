@@ -98,4 +98,4 @@ app.use((req, res, next) => {
 	res.status(200).json({ error: "error" });
 });
 
-// app.listen(3000, "192.168.0.20", function () {});
+app.listen(3000, function () {});
