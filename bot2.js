@@ -1,165 +1,67 @@
 const Telegraf = require("telegraf");
 const Extra = require("telegraf/extra");
 const Markup = require("telegraf/markup");
-
+const { writeDataUsers } = require("../utils");
 const bot = new Telegraf("1362797784:AAGSw88xsIT-EiazAPV3WH9oOEZdCjUlq-U");
 
 bot.use(Telegraf.log());
 
-bot.command("onetime", ({ reply }) =>
-	reply(
-		"One time keyboard",
-		Markup.keyboard(["/simple", "/inline", "/pyramid"])
-			.oneTime()
-			.resize()
-			.extra()
-	)
-);
-
-bot.command("start", ({ reply }) => {
-	return reply(
-		"Welcome to this test bot",
-		Markup.keyboard([
-			// Array's represent rows
-			["Help", "Cancel"],
-			["Send a feedback", "About Us"],
-			["Settings"],
-			["Admin features"],
-		])
-			.oneTime()
-			.resize()
-			.extra()
-	);
-});
-
-bot.command("custom", ({ reply }) => {
-	return reply(
-		"Custom buttons keyboard",
-		Markup.keyboard([
-			// Array's represent rows
-			["🔍 Search", "😎 Popular"],
-			["📢 Ads", "⭐️ Rate us", "👥 Share"],
-			["☸ Setting", "📞 Feedback"],
-		])
-			.oneTime()
-			.resize()
-			.extra()
-	);
-});
-
-bot.hears("🔍 Search", (ctx) => ctx.reply("Yay!"));
-bot.hears("📢 Ads", (ctx) => ctx.reply("Free hugs. Call now!"));
-
-bot.command("special", (ctx) => {
+bot.command("prayerTime", (ctx) => {
 	return ctx.reply(
-		"Special buttons keyboard",
-		Extra.markup((markup) => {
-			return markup
-				.resize()
-				.keyboard([
-					markup.contactRequestButton("Send contact"),
-					markup.locationRequestButton("Send location"),
-				]);
-		})
-	);
-});
-
-bot.command("pyramid", (ctx) => {
-	return ctx.reply(
-		"Keyboard wrap",
-		Extra.markup(
-			Markup.keyboard(["one", "two", "three", "four", "five", "six"], {
-				wrap: (btn, index, currentRow) => currentRow.length >= (index + 1) / 2,
-			})
-		)
-	);
-});
-
-bot.command("simple", (ctx) => {
-	return ctx.replyWithHTML(
-		"<b>Coke</b> or <i>Pepsi?</i>",
-		Extra.markup(Markup.keyboard(["Coke", "Pepsi"]))
-	);
-});
-
-bot.command("inline", (ctx) => {
-	return ctx.reply(
-		"<b>Coke</b> or <i>Pepsi?</i>",
+		"Choose your preffered prayer time",
 		Extra.HTML().markup((m) =>
 			m.inlineKeyboard([
-				m.callbackButton("Coke", "Coke"),
-				m.callbackButton("Pepsi", "Pepsi"),
-			])
-		)
-	);
-});
-
-bot.command("random", (ctx) => {
-	return ctx.reply(
-		"random example",
-		Markup.inlineKeyboard([
-			Markup.callbackButton("Coke", "Coke"),
-			Markup.callbackButton("Dr Pepper", "Dr Pepper", Math.random() > 0.5),
-			Markup.callbackButton("Pepsi", "Pepsi"),
-		]).extra()
-	);
-});
-
-bot.command("caption", (ctx) => {
-	return ctx.replyWithPhoto(
-		{ url: "https://picsum.photos/200/300/?random" },
-		Extra.load({ caption: "Caption" })
-			.markdown()
-			.markup((m) =>
-				m.inlineKeyboard([
-					m.callbackButton("Plain", "plain"),
-					m.callbackButton("Italic", "italic"),
-				])
-			)
-	);
-});
-
-bot.hears(/\/wrap (\d+)/, (ctx) => {
-	return ctx.reply(
-		"Keyboard wrap",
-		Extra.markup(
-			Markup.keyboard(["one", "two", "three", "four", "five", "six"], {
-				columns: parseInt(ctx.match[1]),
-			})
-		)
-	);
-});
-
-bot.action("Dr Pepper", (ctx, next) => {
-	return ctx.reply("👍").then(() => next());
-});
-
-bot.action("plain", async (ctx) => {
-	await ctx.answerCbQuery();
-	await ctx.editMessageCaption(
-		"Caption",
-		Markup.inlineKeyboard([
-			Markup.callbackButton("Plain", "plain"),
-			Markup.callbackButton("Italic", "italic"),
-		])
-	);
-});
-
-bot.action("italic", async (ctx) => {
-	await ctx.answerCbQuery();
-	await ctx.editMessageCaption(
-		"_Caption_",
-		Extra.markdown().markup(
-			Markup.inlineKeyboard([
-				Markup.callbackButton("Plain", "plain"),
-				Markup.callbackButton("* Italic *", "italic"),
+				m.callbackButton("1pm", "1pm"),
+				m.callbackButton("10am", "10am"),
+				m.callbackButton("3pm", "3pm"),
+				m.callbackButton("5pm", "5pm"),
 			])
 		)
 	);
 });
 
 bot.action(/.+/, (ctx) => {
-	return ctx.answerCbQuery(`Oh, ${ctx.match[0]}! Great choice`);
+	return ctx.reply(`Your prayer time is, ${ctx.match[0]}`);
 });
+
+bot.command("start", (ctx) => {
+	return ctx.reply(
+		"Welcome to prayer bot",
+		Extra.markup((markup) => {
+			return markup
+				.resize()
+				.keyboard([
+					markup.contactRequestButton("contact"),
+					markup.locationRequestButton("location"),
+				]);
+		})
+	);
+});
+
+bot.on("contact", (ctx) => {
+	writeDataUsers("./data/users.json", `${ctx.update.message.chat.first_name}`);
+	ctx.reply(
+		`first_name: ${ctx.update.message.chat.first_name}, last_name: ${ctx.update.message.chat.last_name}, username: ${ctx.update.message.chat.username}, chat_id: ${ctx.update.message.chat.id}, phone_number:${ctx.update.message.contact.phone_number}`
+	);
+	bot.on("location", (ctx) => {
+		ctx.reply(
+			`Latitde: ${ctx.update.message.location.latitude}, Longitude: ${ctx.update.message.location.longitude}`
+		);
+	});
+});
+
+bot.hears("prayer time", (ctx) =>
+	ctx.reply(
+		"Choose your preffered prayer time",
+		Extra.HTML().markup((m) =>
+			m.inlineKeyboard([
+				m.callbackButton("1pm", "1pm"),
+				m.callbackButton("10am", "10am"),
+				m.callbackButton("3pm", "3pm"),
+				m.callbackButton("5pm", "5pm"),
+			])
+		)
+	)
+);
 
 bot.launch();
