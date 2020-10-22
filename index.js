@@ -25,10 +25,7 @@ bot.start((ctx) => {
 
 bot.help((ctx) => {
 	return ctx.reply(
-		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot",
-		Extra.markup((markup) => {
-			return markup.keyboard([["/start"], ["/prayers"]]).oneTime();
-		})
+		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot"
 	);
 });
 
