@@ -25,13 +25,51 @@ bot.start((ctx) => {
 
 bot.help((ctx) => {
 	return ctx.reply(
-		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot"
+		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot",
+		Extra.markup((markup) => {
+			return markup.keyboard([["restart"], ["prayers"]]).oneTime();
+		})
 	);
 });
 
 bot.hears("About Us", (ctx) => {
 	ctx.reply(
 		"I am a prayer mobilization platform where prayers across the world can get different prayer requests through Instant Messaging Platforms"
+	);
+});
+
+bot.hears("restart", (ctx) => {
+	return ctx.reply(
+		"welcome to prayer mobilzation, In order to get started share me your contact and location or type /help if you need any help",
+		Extra.markup((markup) => {
+			return markup
+				.resize()
+				.keyboard([
+					[markup.contactRequestButton("Share Your Contact")],
+					["About Us"],
+				])
+				.oneTime();
+		})
+	);
+});
+
+bot.hears("prayers", (ctx) => {
+	return ctx.reply(
+		"Choose your preffered prayer date",
+		Extra.HTML().markup((m) =>
+			m.inlineKeyboard([
+				[m.callbackButton("Mon", "Monday"), m.callbackButton("Tue", "Tuesday")],
+				[
+					m.callbackButton("Wed", "Wednesday"),
+					m.callbackButton("Thu", "Thursday"),
+				],
+				[
+					m.callbackButton("Fri", "Friday"),
+					m.callbackButton("Sat", "Saturday"),
+				],
+				[m.callbackButton("Sun", "Sunday")],
+			])
+		)
 	);
 });
 
