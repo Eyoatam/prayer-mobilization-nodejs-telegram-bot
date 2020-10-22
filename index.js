@@ -26,10 +26,7 @@ bot.start((ctx) => {
 
 bot.help((ctx) => {
 	return ctx.reply(
-		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot",
-		Extra.markup((markup) => {
-			return markup.keyboard([["restart"], ["prayers"]]).oneTime();
-		})
+		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot"
 	);
 });
 
@@ -165,10 +162,7 @@ bot.hears("prayers", (ctx) => {
 
 bot.hears("💡 Help", (ctx) => {
 	return ctx.reply(
-		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot",
-		Extra.markup((markup) => {
-			return markup.keyboard([["restart"], ["prayers"]]).oneTime();
-		})
+		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot"
 	);
 });
 
