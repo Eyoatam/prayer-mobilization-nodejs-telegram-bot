@@ -115,11 +115,11 @@ bot.on("location", (ctx) => {
 // message reply section
 bot.hears("👥 About Me", (ctx) => {
 	ctx.reply(
-		"Hey There 👋, I'm prayer mobilizatiom bot where prayers across the world can get different prayer requests",
+		"Hey There 👋, I'm prayer mobilizatiom bot where prayers across the world can get different prayer requests you can go to /prayers to schedule your prayers",
 		Extra.markup((markup) => {
 			return markup
 				.resize()
-				.keyboard([["💡 Help"], ["restart"]])
+				.keyboard([["💡 Help"], ["prayers"]])
 				.oneTime();
 		})
 	);
