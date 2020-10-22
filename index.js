@@ -17,7 +17,7 @@ bot.start((ctx) => {
 				.resize()
 				.keyboard([
 					[markup.contactRequestButton("Share Your Contact")],
-					["👥 About Me"],
+					["👥 About Me", "💡 Help"],
 				])
 				.oneTime();
 		})
