@@ -2,7 +2,7 @@ const botRequestController = require("./BotRequest");
 class BotController {
 	constructor() {
 		this.botAPI = new botRequestController(
-			"324941013:AAH-TkJHkQzXuBKjKVvPAY2kET3n6lsjkmA"
+			"1332949002:AAFjeTqA4zoMfwg3AGk1ykG1g--FgWqDmrA"
 		);
 	}
 
