@@ -130,14 +130,14 @@ bot.action(/.+/, (ctx) => {
 		method: "POST",
 		json: prefferedDate,
 	};
-	return ctx.reply(`${ctx.match[0]} is your prayer date`);
-	// request(options, function (error, response, body) {
-	// 	if (error) {
-	// 		console.log(error);
-	// 	} else {
-	// 		return ctx.reply(`${ctx.match[0]} is your prayer date`);
-	// 	}
-	// });
+	request(options, function (error, response, body) {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log(response.headers);
+			return ctx.reply(`${ctx.match[0]} is your prayer date`);
+		}
+	});
 });
 
 bot.launch();
