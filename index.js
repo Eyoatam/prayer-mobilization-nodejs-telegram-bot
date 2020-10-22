@@ -8,6 +8,7 @@ const telgramMessager = require("./Routes/messagesRoutes");
 
 const bot = new Telegraf("1332949002:AAFjeTqA4zoMfwg3AGk1ykG1g--FgWqDmrA");
 
+// Global commands
 bot.start((ctx) => {
 	return ctx.reply(
 		"welcome to prayer mobilzation, In order to get started share me your contact and location or type /help if you need any help",
@@ -16,7 +17,7 @@ bot.start((ctx) => {
 				.resize()
 				.keyboard([
 					[markup.contactRequestButton("Share Your Contact")],
-					["About Us"],
+					["👥 About Me"],
 				])
 				.oneTime();
 		})
@@ -29,47 +30,6 @@ bot.help((ctx) => {
 		Extra.markup((markup) => {
 			return markup.keyboard([["restart"], ["prayers"]]).oneTime();
 		})
-	);
-});
-
-bot.hears("About Us", (ctx) => {
-	ctx.reply(
-		"I am a prayer mobilization platform where prayers across the world can get different prayer requests through Instant Messaging Platforms"
-	);
-});
-
-bot.hears("restart", (ctx) => {
-	return ctx.reply(
-		"welcome to prayer mobilzation, In order to get started share me your contact and location or type /help if you need any help",
-		Extra.markup((markup) => {
-			return markup
-				.resize()
-				.keyboard([
-					[markup.contactRequestButton("Share Your Contact")],
-					["About Us"],
-				])
-				.oneTime();
-		})
-	);
-});
-
-bot.hears("prayers", (ctx) => {
-	return ctx.reply(
-		"Choose your preffered prayer date",
-		Extra.HTML().markup((m) =>
-			m.inlineKeyboard([
-				[m.callbackButton("Mon", "Monday"), m.callbackButton("Tue", "Tuesday")],
-				[
-					m.callbackButton("Wed", "Wednesday"),
-					m.callbackButton("Thu", "Thursday"),
-				],
-				[
-					m.callbackButton("Fri", "Friday"),
-					m.callbackButton("Sat", "Saturday"),
-				],
-				[m.callbackButton("Sun", "Sunday")],
-			])
-		)
 	);
 });
 
@@ -118,7 +78,7 @@ bot.on("contact", (ctx) => {
 						.resize()
 						.keyboard([
 							[markup.locationRequestButton("Share Your Location")],
-							["/help"],
+							["💡 Help"],
 						])
 						.oneTime();
 				})
@@ -147,7 +107,7 @@ bot.on("location", (ctx) => {
 				Extra.markup((markup) => {
 					return markup
 						.resize()
-						.keyboard([["/prayers"], ["/help"]])
+						.keyboard([["prayers"], ["💡 Help"]])
 						.oneTime();
 				})
 			);
@@ -155,6 +115,58 @@ bot.on("location", (ctx) => {
 	});
 });
 
+// message reply section
+bot.hears("👥 About Me", (ctx) => {
+	ctx.reply(
+		"I am a prayer mobilization platform where prayers across the world can get different prayer requests through Instant Messaging Platforms"
+	);
+});
+
+bot.hears("restart", (ctx) => {
+	return ctx.reply(
+		"welcome to prayer mobilzation, In order to get started share me your contact and location or type /help if you need any help",
+		Extra.markup((markup) => {
+			return markup
+				.resize()
+				.keyboard([
+					[markup.contactRequestButton("Share Your Contact")],
+					["👥 About Me"],
+				])
+				.oneTime();
+		})
+	);
+});
+
+bot.hears("prayers", (ctx) => {
+	return ctx.reply(
+		"Choose your preffered prayer date",
+		Extra.HTML().markup((m) =>
+			m.inlineKeyboard([
+				[m.callbackButton("Mon", "Monday"), m.callbackButton("Tue", "Tuesday")],
+				[
+					m.callbackButton("Wed", "Wednesday"),
+					m.callbackButton("Thu", "Thursday"),
+				],
+				[
+					m.callbackButton("Fri", "Friday"),
+					m.callbackButton("Sat", "Saturday"),
+				],
+				[m.callbackButton("Sun", "Sunday")],
+			])
+		)
+	);
+});
+
+bot.hears("💡 Help", (ctx) => {
+	return ctx.reply(
+		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot",
+		Extra.markup((markup) => {
+			return markup.keyboard([["restart"], ["prayers"]]).oneTime();
+		})
+	);
+});
+
+// bot actions
 bot.action(/.+/, (ctx) => {
 	let prefferedDate = {
 		prayerDate: ctx.match[0],
