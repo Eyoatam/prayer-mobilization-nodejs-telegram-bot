@@ -8,9 +8,9 @@ const telgramMessager = require("./Routes/messagesRoutes");
 
 const bot = new Telegraf("1332949002:AAFjeTqA4zoMfwg3AGk1ykG1g--FgWqDmrA");
 
-bot.command("start", (ctx) => {
+bot.start((ctx) => {
 	return ctx.reply(
-		"welcome to prayer mobilzation, In order to get started share me your contact and location or type /help if you get stuck",
+		"welcome to prayer mobilzation, In order to get started share me your contact and location or type /help if you need any help",
 		Extra.markup((markup) => {
 			return markup
 				.resize()
@@ -23,12 +23,18 @@ bot.command("start", (ctx) => {
 	);
 });
 
-bot.command("help", (ctx) => {
+bot.help((ctx) => {
 	return ctx.reply(
-		"I am a prayer mobilization platform where prayers across the world can get different prayer requests through Instant Messaging Platforms",
+		"Hey ✋️, I'm prayer mobilizatiom bot.\n\nYou can control me by sending these commands:\n\n/prayers - sets prayer time\n/start - restarts the bot",
 		Extra.markup((markup) => {
 			return markup.keyboard([["/start"], ["/prayers"]]).oneTime();
 		})
+	);
+});
+
+bot.hears("About Us", (ctx) => {
+	ctx.reply(
+		"I am a prayer mobilization platform where prayers across the world can get different prayer requests through Instant Messaging Platforms"
 	);
 });
 
@@ -134,21 +140,3 @@ bot.action(/.+/, (ctx) => {
 });
 
 bot.launch();
-
-const express = require("express");
-const cors = require("cors");
-const app = express();
-const bodyParser = require("body-parser");
-const { markup } = require("telegraf/extra");
-
-app.use(cors());
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use("/telegram_message", telgramMessager);
-app.use((req, res, next) => {
-	console.log("request acepted");
-	res.status(200).json({ error: "error" });
-});
-
-app.listen(process.env.PORT || 3000, function () {});
