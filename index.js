@@ -118,7 +118,13 @@ bot.on("location", (ctx) => {
 // message reply section
 bot.hears("👥 About Me", (ctx) => {
 	ctx.reply(
-		"I am a prayer mobilization platform where prayers across the world can get different prayer requests through Instant Messaging Platforms"
+		"Hey There 👋, I'm prayer mobilizatiom bot where prayers across the world can get different prayer requests",
+		Extra.markup((markup) => {
+			return markup
+				.resize()
+				.keyboard([["💡 Help"], ["restart"]])
+				.oneTime();
+		})
 	);
 });
 
