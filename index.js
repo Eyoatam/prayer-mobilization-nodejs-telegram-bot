@@ -145,11 +145,6 @@ bot.hears("Start", (ctx) => {
 	);
 });
 
-stepHandler.action("next", (ctx) => {
-	ctx.reply("Step 2. Via inline button");
-	return ctx.wizard.next();
-});
-
 bot.hears("prayers", (ctx) => {
 	return ctx.reply(
 		"Choose your preffered prayer date",
