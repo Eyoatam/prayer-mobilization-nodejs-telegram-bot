@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"author": "Eyoatam Tamirat",
 	"scripts": {
-		"start": "nodemon server.js"
+		"start": "node server.js"
 	},
 	"license": "ISC",
 	"dependencies": {
