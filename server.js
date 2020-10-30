@@ -1,10 +1,9 @@
-const https = require("https");
+const express = require("express");
 const request = require("request");
 const telgramMessager = require("./Routes/messagesRoutes");
-const express = require("express");
 const cors = require("cors");
-const app = express();
 const bodyParser = require("body-parser");
+const app = express();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
