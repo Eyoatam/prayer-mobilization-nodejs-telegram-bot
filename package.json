@@ -1,13 +1,12 @@
 {
-	"name": "telegram-bot",
+	"name": "prayer-mobilization-telegram-bot",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Prayer Mobilization bot for sending prayers",
 	"main": "index.js",
+	"author": "Eyoatam Tamirat",
 	"scripts": {
-    "start": "node server.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "nodemon server.js"
 	},
-	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"body-parser": "^1.19.0",
