@@ -1,7 +1,7 @@
 const request = require("request");
 class BotRequest {
 	constructor(botToken) {
-		this.telegram_api = "https://api.telegram.org/bot";
+		this.telegram_api = process.env.TELEGRAM_API;
 		this.telegram_bot_api = this.telegram_api + botToken;
 	}
 
