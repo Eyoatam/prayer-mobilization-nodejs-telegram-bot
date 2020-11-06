@@ -64,7 +64,7 @@ bot.on("contact", (ctx) => {
 		Chat_Id: ctx.update.message.chat.id,
 		phone_number: ctx.update.message.contact.phone_number,
 	};
-	const api_url = "https://instant-prayer-api.herokuapp.com/api/users";
+	const api_url = process.env.API_URL;
 	var options = {
 		uri: api_url,
 		method: "POST",
@@ -95,7 +95,7 @@ bot.on("location", (ctx) => {
 		latitude: ctx.update.message.location.latitude,
 		longitude: ctx.update.message.location.longitude,
 	};
-	const api_url = "https://instant-prayer-api.herokuapp.com/api/users";
+	const api_url = process.env.API_URL;
 	var options = {
 		uri: api_url,
 		method: "POST",
@@ -183,7 +183,7 @@ bot.action(/.+/, (ctx) => {
 	let prefferedDate = {
 		prayerDate: ctx.match[0],
 	};
-	const api_url = "https://instant-prayer-api.herokuapp.com/api/users";
+	const api_url = process.env.API_URL;
 	var options = {
 		uri: api_url,
 		method: "POST",
