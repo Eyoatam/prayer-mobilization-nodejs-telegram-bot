@@ -4,8 +4,9 @@ const Extra = require("telegraf/extra");
 const https = require("https");
 const request = require("request");
 const { markup } = require("telegraf/extra");
+require("dotenv").config();
 
-const bot = new Telegraf("1332949002:AAFjeTqA4zoMfwg3AGk1ykG1g--FgWqDmrA");
+const bot = new Telegraf(process.env.Token);
 
 // Global commands
 bot.start((ctx) => {
@@ -198,5 +199,4 @@ bot.action(/.+/, (ctx) => {
 	});
 });
 
-// bot.action("delete", ({deleteMessage}) => deleteMessage())
 bot.launch();
