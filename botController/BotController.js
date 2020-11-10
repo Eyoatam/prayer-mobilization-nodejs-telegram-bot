@@ -1,9 +1,7 @@
 const botRequestController = require("./BotRequest");
 class BotController {
 	constructor() {
-		this.botAPI = new botRequestController(
-			"1332949002:AAFjeTqA4zoMfwg3AGk1ykG1g--FgWqDmrA"
-		);
+		this.botAPI = new botRequestController(process.env.Token);
 	}
 
 	sendMessage(chatId, message, menuButtons, messageButtons, callback) {
