@@ -131,7 +131,7 @@ bot.hears("👥 About Me", (ctx) => {
 	);
 });
 
-bot.hears("Start", (ctx) => {
+bot.hears("start", (ctx) => {
 	return ctx.reply(
 		"welcome to prayer mobilzation, In order to get started share me your contact and location or type /help if you need any help",
 		Extra.markup((markup) => {
