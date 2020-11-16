@@ -1,12 +1,11 @@
 const Markup = require("telegraf/markup");
 const Telegraf = require("telegraf");
 const Extra = require("telegraf/extra");
-const https = require("https");
 const request = require("request");
 const { markup } = require("telegraf/extra");
 require("dotenv").config();
 
-const bot = new Telegraf(process.env.Token);
+const bot = new Telegraf("1332949002:AAFjeTqA4zoMfwg3AGk1ykG1g--FgWqDmrA");
 
 // Global commands
 bot.start((ctx) => {
@@ -64,7 +63,7 @@ bot.on("contact", (ctx) => {
 		Chat_Id: ctx.update.message.chat.id,
 		phone_number: ctx.update.message.contact.phone_number,
 	};
-	const api_url = process.env.API_URL;
+	const api_url = "https://instant-prayer-api.herokuapp.com/api/users";
 	var options = {
 		uri: api_url,
 		method: "POST",
@@ -95,7 +94,7 @@ bot.on("location", (ctx) => {
 		latitude: ctx.update.message.location.latitude,
 		longitude: ctx.update.message.location.longitude,
 	};
-	const api_url = process.env.API_URL;
+	const api_url = "https://instant-prayer-api.herokuapp.com/api/users";
 	var options = {
 		uri: api_url,
 		method: "POST",
@@ -183,7 +182,7 @@ bot.action(/.+/, (ctx) => {
 	let prefferedDate = {
 		prayerDate: ctx.match[0],
 	};
-	const api_url = process.env.API_URL;
+	const api_url = "https://instant-prayer-api.herokuapp.com/api/users";
 	var options = {
 		uri: api_url,
 		method: "POST",
