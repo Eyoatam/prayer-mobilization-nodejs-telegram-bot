@@ -3,12 +3,14 @@ const Telegraf = require("telegraf");
 const Extra = require("telegraf/extra");
 const request = require("request");
 const { markup } = require("telegraf/extra");
+const postRequest = require("./utils/sendPostRequest");
 require("dotenv").config();
 
 const bot = new Telegraf("1332949002:AAFjeTqA4zoMfwg3AGk1ykG1g--FgWqDmrA");
 
 // Global commands
 bot.start((ctx) => {
+	console.log(ctx.update.message.chat);
 	return ctx.reply(
 		"Welcome to Prayer Mobilzation, In order to get started\nshare me your contact or go to /help if you need any help",
 		Extra.markup((markup) => {
@@ -63,13 +65,9 @@ bot.on("contact", (ctx) => {
 		Chat_Id: ctx.update.message.chat.id,
 		phone_number: ctx.update.message.contact.phone_number,
 	};
-	const api_url = "https://instant-prayer-api.herokuapp.com/api/users";
-	var options = {
-		uri: api_url,
-		method: "POST",
-		json: userObject,
-	};
-	request(options, function (error, response, body) {
+	const api_url = process.env.API_URL;
+
+	new postRequest("POST", api_url, userObject, (error) => {
 		if (error) {
 			console.log(error);
 		} else {
@@ -94,13 +92,8 @@ bot.on("location", (ctx) => {
 		latitude: ctx.update.message.location.latitude,
 		longitude: ctx.update.message.location.longitude,
 	};
-	const api_url = "https://instant-prayer-api.herokuapp.com/api/users";
-	var options = {
-		uri: api_url,
-		method: "POST",
-		json: locationObject,
-	};
-	request(options, function (error, response, body) {
+	const api_url = process.env.API_URL;
+	new postRequest("POST", api_url, locationObject, (error) => {
 		if (error) {
 			console.log(error);
 		} else {
@@ -117,7 +110,7 @@ bot.on("location", (ctx) => {
 	});
 });
 
-// message reply section
+// custom message reply section
 bot.hears("👥 About Me", (ctx) => {
 	ctx.reply(
 		"Hey There 👋, I'm prayer mobilizatiom bot\nwhere prayers across the world can get different prayer requests\nyou can go to /prayers to schedule your prayers",
@@ -182,13 +175,13 @@ bot.action(/.+/, (ctx) => {
 	let prefferedDate = {
 		prayerDate: ctx.match[0],
 	};
-	const api_url = "https://instant-prayer-api.herokuapp.com/api/users";
+	const api_url = process.env.API_URL;
 	var options = {
 		uri: api_url,
 		method: "POST",
 		json: prefferedDate,
 	};
-	request(options, function (error, response, body) {
+	new postRequest("POST", api_url, prefferedDate, (error) => {
 		if (error) {
 			console.log(error);
 		} else {
