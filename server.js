@@ -1,5 +1,4 @@
 const express = require("express");
-const request = require("request");
 const telegramMessager = require("./Routes/messagesRoutes");
 const cors = require("cors");
 const bodyParser = require("body-parser");
