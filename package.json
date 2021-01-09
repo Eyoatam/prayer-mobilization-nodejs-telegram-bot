@@ -6,7 +6,12 @@
 	"author": "Eyoatam Tamirat",
 	"scripts": {
 		"start": "node server.js",
+<<<<<<< HEAD
 		"test": "jest --coverage"
+=======
+		"dev": "nodemon server.js",
+		"test": "jest"
+>>>>>>> f863e1e8f22ec44e6250893c86e25c706c28f4b2
 	},
 	"license": "ISC",
 	"dependencies": {
