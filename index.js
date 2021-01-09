@@ -9,6 +9,7 @@ const bot = new Telegraf("1332949002:AAFjeTqA4zoMfwg3AGk1ykG1g--FgWqDmrA");
 
 // Global commands
 bot.start((ctx) => {
+	console.log(ctx.update.message.chat);
 	return ctx.reply(
 		"Welcome to Prayer Mobilzation, In order to get started\nshare me your contact or go to /help if you need any help",
 		Extra.markup((markup) => {
