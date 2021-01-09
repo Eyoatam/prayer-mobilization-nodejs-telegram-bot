@@ -4,8 +4,6 @@ node_modules
 coverage/
 .env
 
-./ngrok
-
 # Log files
 npm-debug.log*
 yarn-debug.log*
