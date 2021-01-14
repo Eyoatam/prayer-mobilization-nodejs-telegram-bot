@@ -5,7 +5,7 @@ test("Test for post requests", () => {
 	const jsonObject = {
 		name: "test",
 	};
-	new postRequest("POST", api_url, jsonObject, (error) => {
+	new postRequest("GET", api_url, jsonObject, (error) => {
 		if (error) {
 			console.log(error);
 		} else {

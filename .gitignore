@@ -1,9 +1,11 @@
 .DS_Store
 node_modules
 
-# local env files
-.env.local
-.env.*.local
+# test files
+coverage/
+
+# dotenv environment variables file
+.env
 
 ./ngrok
 
